@@ -3,8 +3,9 @@
 ## Installing required dependencies
 ```
 yarn add @types/node --dev
-yarn add @aws-sdk/client-s3
 yarn add @aws-sdk/credential-providers
+yarn add @aws-sdk/client-s3
+yarn add @aws-sdk/client-dynamodb
 yarn add dotenv
 yarn add tsc-watch --dev
 ```
@@ -27,7 +28,8 @@ PROFILE=YOUR_CREDENTIALS_PROFILE
 ```
 
 ## Runing one example
-node dist/example_S3.js
+node dist/S3/example_S3.js
+node dist/DynamoDB/example_DynamoDB.js
 
 ## Running predefined entry points
 ```
