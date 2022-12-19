@@ -27,9 +27,9 @@ REGION=us-east-1
 PROFILE=YOUR_CREDENTIALS_PROFILE
 ```
 
-## Runing one example
-node dist/S3/example_S3.js
-node dist/DynamoDB/example_DynamoDB.js
+## Runing the examples
+node dist/S3/example_S3.js  
+node dist/DynamoDB/example_DynamoDB.js  
 
 ## Running predefined entry points
 ```
