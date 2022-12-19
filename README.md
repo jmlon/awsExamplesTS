@@ -8,6 +8,9 @@ yarn add @aws-sdk/client-s3
 yarn add @aws-sdk/client-dynamodb
 yarn add dotenv
 yarn add tsc-watch --dev
+
+yarn add date-and-time
+yarn add @types/date-and-time --dev
 ```
 
 ## Environment configuration 

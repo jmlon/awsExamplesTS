@@ -14,7 +14,8 @@ import { GetItemCommand, GetItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { DeleteItemCommand, DeleteItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { BatchWriteItemCommand, BatchWriteItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { BatchGetItemCommand, BatchGetItemCommandInput, BatchGetItemCommandOutput } from "@aws-sdk/client-dynamodb";
-
+import { QueryCommand, QueryCommandInput, QueryCommandOutput } from "@aws-sdk/client-dynamodb";
+ 
 dotenv.config();
 
 const config : DynamoDBClientConfig = { 
@@ -25,7 +26,7 @@ const ddbClient = new DynamoDBClient(config);
 
 
 
-async function createTable(tablename: string) {
+export async function createTable(tablename: string) {
     try {
         const params: CreateTableCommandInput = {
             AttributeDefinitions: [
@@ -83,7 +84,7 @@ async function listTables() {
 }
 
 
-async function deleteTable(tablename: string) {
+export async function deleteTable(tablename: string) {
     try {
         const params: DeleteTableCommandInput =  {
             TableName: tablename,
@@ -111,16 +112,16 @@ async function describeTable(tablename: string) {
 }
 
 
-async function putItem(tablename: string, item: Record<string, AttributeValue>) {
+export async function putItem(tablename: string, item: Record<string, AttributeValue>) {
     // inserts/overwrites item associated with key
     // allows extra fields
     try {
         const params: PutItemCommandInput = {
             TableName: tablename,
             Item: item,
-          };
-          const response = await ddbClient.send(new PutItemCommand(params));
-          console.log(response);
+        };
+        const response = await ddbClient.send(new PutItemCommand(params));
+        //   console.log(response);
     }
     catch(err) {
         console.error(err);
@@ -220,11 +221,11 @@ async function batchGetItem(tablename: string) {
                 Keys: [
                   {
                     Season: { N: "1" },
-                    Episode: { N: "2" }
+                    Episode: { N: "3" }
                   },
                   {
                     Season: { N: "2" },
-                    Episode: { N: "1" }
+                    Episode: { N: "4" }
                   }
                 ],
                 ProjectionExpression: "Title",

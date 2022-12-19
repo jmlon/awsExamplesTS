@@ -199,4 +199,3 @@ async function funct() {
     // await deleteObject(bucket, 'dir1/dir2/object.txt');
     // await deleteBucket(bucket);
 })();
-
