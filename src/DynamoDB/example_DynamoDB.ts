@@ -12,6 +12,8 @@ import { PutItemCommand, PutItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { UpdateItemCommand, UpdateItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { GetItemCommand, GetItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { DeleteItemCommand, DeleteItemCommandInput } from "@aws-sdk/client-dynamodb";
+import { BatchWriteItemCommand, BatchWriteItemCommandInput } from "@aws-sdk/client-dynamodb";
+import { BatchGetItemCommand, BatchGetItemCommandInput, BatchGetItemCommandOutput } from "@aws-sdk/client-dynamodb";
 
 dotenv.config();
 
@@ -175,6 +177,74 @@ async function deleteItem(tablename: string, key: Record<string,AttributeValue>)
 }
 
 
+async function batchWriteItem(tablename: string) {
+    try {
+        const params: BatchWriteItemCommandInput = {
+            RequestItems: {
+              [tablename]: [
+                {
+                  PutRequest: {
+                    Item: {
+                      Season: { N: "1" },
+                      Episode: { N: "2" },
+                      Title: { S: "The naked now" }
+                    },
+                  },
+                },
+                {
+                  PutRequest: {
+                    Item: {
+                      Season: { N: "2" },
+                      Episode: { N: "1" },
+                      Title: { S: "The child" },
+                    },
+                  },
+                },
+              ],
+            },
+        };
+        const response = await ddbClient.send(new BatchWriteItemCommand(params));
+        console.log("Batch write success:\n", response);
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+
+async function batchGetItem(tablename: string) {
+    try {
+        const params: BatchGetItemCommandInput = {
+            RequestItems: {
+              [tablename]: {
+                Keys: [
+                  {
+                    Season: { N: "1" },
+                    Episode: { N: "2" }
+                  },
+                  {
+                    Season: { N: "2" },
+                    Episode: { N: "1" }
+                  }
+                ],
+                ProjectionExpression: "Title",
+              },
+            },
+        };
+        const response: BatchGetItemCommandOutput = await ddbClient.send(new BatchGetItemCommand(params));
+        // console.log("Success, items retrieved", response);
+        if (response.Responses) {
+            for (let rec of response.Responses[tablename]) {
+                console.log(rec);
+            }
+        }
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+
 async function funct() {
     try {
 
@@ -199,7 +269,7 @@ async function funct() {
     //     Season: {"N":"1"},
     //     Episode: {"N":"1"} }, 
     //     {
-    //         ":t": {"S":"This is the new title"},
+    //         ":t": {"S":"Encounter at farpoint"},
     // });
     // await getItem(tableName, {
     //     Season: {"N":"1"},
@@ -209,6 +279,8 @@ async function funct() {
     //     Season: {"N":"1"},
     //     Episode: {"N":"1"} 
     // });
-    await deleteTable(tableName);
+    // await batchWriteItem(tableName);
+    await batchGetItem(tableName);
 
+    // await deleteTable(tableName);
 })();
