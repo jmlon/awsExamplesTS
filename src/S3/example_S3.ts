@@ -189,14 +189,14 @@ async function funct() {
     const bucket = 'alittlebucketfortesting';
     // await createBucket(bucket);
     await listBuckets();
-    // createObject(bucket, 'dir1/dir2/object.txt', 'This is a test body');
-    // createObjectFromStream(bucket, 'D:\\Downloads\\object2.txt');
-    // getObject(bucket, 'dir1/dir2/object.txt');
-    // getObject(bucket, 'object2.txt');
-    // listObjects(bucket);
-    // listObjectsMoreThan1000(bucket);
-    // deleteObject(bucket, 'object2.txt');
-    // deleteObject(bucket, 'dir1/dir2/object.txt');
-    // deleteBucket(bucket);
+    // await createObject(bucket, 'dir1/dir2/object.txt', 'This is a test body');
+    // await createObjectFromStream(bucket, 'D:\\Downloads\\object2.txt');
+    // await getObject(bucket, 'dir1/dir2/object.txt');
+    // await getObject(bucket, 'object2.txt');
+    // await listObjects(bucket);
+    // await listObjectsMoreThan1000(bucket);
+    // await deleteObject(bucket, 'object2.txt');
+    // await deleteObject(bucket, 'dir1/dir2/object.txt');
+    // await deleteBucket(bucket);
 })();
 
