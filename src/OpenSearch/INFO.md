@@ -4,7 +4,10 @@
 
 ### Provisioned OpenSearch Domain
 Indexes held in domains.  
-Index data stored in local disks (EBS)
+Index data stored in local disks (EBS) - "Hot" storage, fastest, read/write.
+Ultrawarm = S3 + Caching. Read-only. Lower cost.
+Cold storage = S3, Cheaper, for infrequently accessed data.
+
 Snapshots: 
 - Automated: Only for recovery. Stored in S3, no additional cost.
 - Manual: For recovery and moving data to other cluster. Stored in S3, standard charges.
