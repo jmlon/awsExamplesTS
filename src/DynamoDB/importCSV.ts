@@ -49,9 +49,9 @@ function importCSV(filename: string, tableName: string) {
 
 (async () => {
     const tableName = 'TEST_TABLE';
-    // await deleteTable(tableName);
+    await deleteTable(tableName);
     // await createTable(tableName);
-    importCSV('stng.csv', tableName);
+    // importCSV('stng.csv', tableName);
 
 })();
 
