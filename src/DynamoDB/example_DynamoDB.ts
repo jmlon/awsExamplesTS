@@ -15,6 +15,7 @@ import { DeleteItemCommand, DeleteItemCommandInput } from "@aws-sdk/client-dynam
 import { BatchWriteItemCommand, BatchWriteItemCommandInput } from "@aws-sdk/client-dynamodb";
 import { BatchGetItemCommand, BatchGetItemCommandInput, BatchGetItemCommandOutput } from "@aws-sdk/client-dynamodb";
 import { QueryCommand, QueryCommandInput, QueryCommandOutput } from "@aws-sdk/client-dynamodb";
+import { ScanCommand, ScanCommandInput, ScanCommandOutput } from "@aws-sdk/client-dynamodb";
  
 dotenv.config();
 
@@ -246,6 +247,56 @@ async function batchGetItem(tablename: string) {
 }
 
 
+async function queryTable(tablename: string) {
+    try {
+        const params: QueryCommandInput = {
+            KeyConditionExpression: "Season = :s and Episode > :e",
+            FilterExpression: "contains (Title, :topic)",   // looks for substring, case-sensitive
+            ExpressionAttributeValues: {
+                ":s": { N: "1" },
+                ":e": { N: "3" },
+                ":topic": { S: "one" },
+            },
+            ProjectionExpression: "Season, Episode, Title",
+            TableName: tablename,
+        };
+        const response: QueryCommandOutput = await ddbClient.send(new QueryCommand(params));
+        response.Items?.forEach(item => {
+            console.log(`${item.Season.N} - ${item.Episode.N} : title = ${item.Title.S}`);
+        });
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+
+async function scanTable(tablename: string) {
+    try {
+        const params = {
+            // Specify which items in the results are returned.
+            //FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
+            // Define the expression attribute value, which are substitutes for the values you want to compare.
+            // ExpressionAttributeValues: {
+            //     ":topic": { S: "SubTitle2" },
+            //     ":s": { N: "1" },
+            //     ":e": { N: "2" },
+            // },
+            // Set the projection expression, which the the attributes that you want.
+            ProjectionExpression: "Season, Episode, Title",
+            TableName: tablename,
+        };
+        const response = await ddbClient.send(new ScanCommand(params));
+        response.Items?.forEach(item => {
+            console.log(item.Title.S);
+        });
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+
 async function funct() {
     try {
 
@@ -281,7 +332,9 @@ async function funct() {
     //     Episode: {"N":"1"} 
     // });
     // await batchWriteItem(tableName);
-    await batchGetItem(tableName);
+    // await batchGetItem(tableName);
+    // await queryTable(tableName);
+    await scanTable(tableName);
 
     // await deleteTable(tableName);
 })();
