@@ -6,6 +6,8 @@ yarn add @types/node --dev
 yarn add @aws-sdk/credential-providers
 yarn add @aws-sdk/client-s3
 yarn add @aws-sdk/client-dynamodb
+yarn add @aws-sdk/client-ses
+yarn add @aws-sdk/client-sqs
 yarn add dotenv
 yarn add tsc-watch --dev
 
@@ -49,5 +51,6 @@ yarn run test
 
 [AWS SDK for JavaScript](https://aws.amazon.com/sdk-for-javascript/)  
 [API Reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)  
+[Github SDK Examples](https://github.com/awsdocs/aws-doc-sdk-examples)  
 [How to setup Node.js with TypeScript in 2023](https://fireship.io/lessons/typescript-nodejs-setup/)  
 
