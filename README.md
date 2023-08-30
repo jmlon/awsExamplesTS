@@ -50,6 +50,7 @@ yarn run test
 
 ## Documentation
 
+[AWS SDK for JavaScript v3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/introduction/)  
 [AWS SDK for JavaScript](https://aws.amazon.com/sdk-for-javascript/)  
 [API Reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)  
 [Github SDK Examples](https://github.com/awsdocs/aws-doc-sdk-examples)  

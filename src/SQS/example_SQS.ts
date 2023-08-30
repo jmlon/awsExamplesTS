@@ -1,3 +1,5 @@
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/sqs/
+
 import dotenv from "dotenv";
 import { fromIni } from "@aws-sdk/credential-providers";
 import { CreateQueueCommand, CreateQueueCommandInput, DeleteQueueCommand, DeleteQueueCommandInput, ReceiveMessageCommand, ReceiveMessageCommandInput, SendMessageCommand, SendMessageCommandInput, SQSClient, SQSClientConfig } from "@aws-sdk/client-sqs";
